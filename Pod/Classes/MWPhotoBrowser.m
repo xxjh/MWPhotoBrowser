@@ -472,6 +472,9 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
             previousViewController.navigationItem.backBarButtonItem = _previousViewControllerBackButton;
             _previousViewControllerBackButton = nil;
         }
+        //dzs 下面两行添加的
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+        self.navigationController.navigationBar.shadowImage = [UIImage new];
     }
 }
 
@@ -1503,7 +1506,11 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 - (BOOL)areControlsHidden { return (_toolbar.alpha == 0); }
 - (void)hideControls { [self setControlsHidden:YES animated:YES permanent:NO]; }
 - (void)showControls { [self setControlsHidden:NO animated:YES permanent:NO]; }
-- (void)toggleControls { [self setControlsHidden:![self areControlsHidden] animated:YES permanent:NO]; }
+- (void)toggleControls {
+//    [self setControlsHidden:![self areControlsHidden] animated:YES permanent:NO];
+    //dzs 上面的是原来库的，下面一行添加的
+    [self.navigationController popViewControllerAnimated:NO];
+}
 
 #pragma mark - Properties
 
